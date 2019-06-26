@@ -5,6 +5,7 @@ use Phore\MicroApp\App;
 use Phore\MicroApp\Handler\JsonExceptionHandler;
 use Phore\MicroApp\Handler\JsonResponseHandler;
 use Phore\MicroApp\Helper\CORSHelper;
+use Phore\MicroApp\Response\JsonResponse;
 use Phore\MicroApp\Type\QueryParams;
 use Phore\MicroApp\Type\Request;
 use Phore\MicroApp\Type\RouteParams;
@@ -30,17 +31,26 @@ $app->acl->addRule(\aclRule()->route("/*")->ALLOW());
 /**
  ** Define Routes
  **/
-$app->router->on("*", ["GET", "POST", "PUT", "DELETE"], function (RouteParams $routeParams, Request $request) {
+$app->router->on("*", ["GET", "POST", "PUT", "DELETE"], function (QueryParams $params, Request $request) {
+
+    $responseCode = $params->get("code", 200);
+
     $body = null;
     if ($request->requestMethod !== "GET")
         $body = $request->getBody();
-    return [
+    $data = [
         "endpoint" => "Talpa Mock Api",
         "requestMethod" => $request->requestMethod,
         "route" => $request->requestPath,
         "headers" => getallheaders(),
         "body" => $body
     ];
+
+
+    return new JsonResponse($data, [], $responseCode);
+
+
+
 });
 
 /**
