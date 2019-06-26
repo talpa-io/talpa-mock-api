@@ -2,9 +2,12 @@
 
 Receive any HTTP Request and return the data received.
 
-## Start Locally
 
-Checkout Project and run "./kickstart". Make sure that port 80 is free. 
+## Start api as docker container
+
+```
+docker run -it -p 80:80 talpaio/mock-api
+```
 
 ## Options
 

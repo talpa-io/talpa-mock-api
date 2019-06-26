@@ -11,3 +11,7 @@ command:
   build:
     - "composer update"
 
+  run:
+    - "sudo -u www-data touch /tmp/log"
+    - "D:tail -f /tmp/log"
+

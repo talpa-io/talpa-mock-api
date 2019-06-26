@@ -47,6 +47,8 @@ $app->router->on("*", ["GET", "POST", "PUT", "DELETE"], function (QueryParams $p
     ];
 
 
+    file_put_contents("/tmp/log", phore_json_pretty_print(phore_json_encode($data)), FILE_APPEND);
+
     return new JsonResponse($data, [], $responseCode);
 
 
